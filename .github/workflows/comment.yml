@@ -1,18 +1,20 @@
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v3
+      - name: "Comment operator test error code [2]"
+        uses: mshick/add-pr-comment@v1
         with:
-          github-token: ${{ secrets.BOT_TOKEN }}
-          debug: true
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+          message: |
+            /hold
+            
+            There are changes in both `community-operators` and `upstream-community-operators` directories at the same time. Only one of these directories can be changed in one PR. You need to open another PR for other directory (e.g. `upstream-community-operators`)
+            Please add comment with `/hold cancel` when ready.
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: true # This is the default
+
