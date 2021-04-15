@@ -16,3 +16,16 @@ jobs:
               repo: context.repo.repo,
               body: '👋 Thanks for reporting!'
             })
+
+      - name: "Comment operator test error code [2]"
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            /hold
+            
+            There are changes in both `community-operators` and `upstream-community-operators` directories at the same time. Only one of these directories can be changed in one PR. You need to open another PR for other directory (e.g. `upstream-community-operators`)
+            Please add comment with `/hold cancel` when ready.
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: true # This is the default
+
