@@ -5,18 +5,6 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v3
-        with:
-          github-token: ${{ secrets.BOT_TOKEN }}
-          debug: true
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
-
       - name: "Comment operator test error code [2]"
         uses: mshick/add-pr-comment@v1
         with:
