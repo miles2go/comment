@@ -8,6 +8,7 @@ jobs:
       - uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
+          debug: true
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
